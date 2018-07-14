@@ -5,3 +5,6 @@
 [0713/132754.299:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0713/132754.769:ERROR:exception_snapshot_win.cc(88)] thread ID 20496 not found in process
 [0713/132754.769:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0714/235724.355:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0714/235724.721:ERROR:exception_snapshot_win.cc(88)] thread ID 12084 not found in process
+[0714/235724.721:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)

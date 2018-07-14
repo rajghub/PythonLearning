@@ -1,11 +1,11 @@
-f = open("demofile.txt", "r")
+f = open("demofile.html", "r")
 for x in f:
     print(x)
 
-b = open("demofile.txt", "a")
+b = open("demofile.html", "a")
 b.write("\n Its a new line")
 
-c = open("demofile.txt", "r")
+c = open("demofile.html", "r")
 for x in c:
     print(x)
 
