@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait  # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-delay = 15
+delay = 5
 uploadfilename = "D:\Learning\Python\PythonLearning\BOTOX_ONERegistrationQuickLookGuide.html"
 browser = webdriver.Chrome('D:\\chromedriver')
 print("Browser opened")
@@ -53,25 +53,36 @@ def chooseFileFunc():
 def clickOkBtn():
     try:
         okBtn = browser.find_element_by_link_text('OK')
-        browser.implicitly_wait(delay)
+      
         okBtn.click()
         okBtn.send_keys(Keys.ENTER )
         print("Able to find the element")
     except Exception as axp:
         print("unable to find OK BUTTON")
-        clickOkBtn()
+        
         
 
 def clicknextBtn():
     try:
         nextBtn = browser.find_element_by_id('inboxUploadNext')
-        browser.implicitly_wait(delay)
         nextBtn.click()
         # nextBtn.send_keys(Keys.ENTER )
         print("Able to find NEXT BUTTON")
+        clicknextBtn()
+        
     except Exception as axp:
         print("unable to find NEXT BUTTON")
-        clicknextBtn()        
+        # clicknextBtn()        
+
+
+def clicksaveBtn():
+    try:
+        saveBtn = browser.find_element_by_id('inboxUploadSave')
+        saveBtn.click()
+        print('Save clicked')
+    except Exception as axpn:
+        print("Unable to click save")
+        clicknextBtn()
 
 # uploadType = browser.find_element_by_id('uploadTypeSelect')
 # uploadType.click()        
@@ -105,4 +116,6 @@ print("Email Fragment option selected")
 
 clickOkBtn()
 clickOkBtn()
+
+clicknextBtn()
 
