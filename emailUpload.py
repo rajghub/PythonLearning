@@ -1,19 +1,36 @@
 
+# --------- WORKING WITH EXCEL FILE ------------------------
+import openpyxl
+# import os
+
+book = openpyxl.load_workbook("email_data.xlsx")
+sheet = book.active
+
+# Data collection ------------------
+uploadfilename = sheet['B2'].value
+sesName = sheet['C2'].value
+sesTitle = sheet['D2'].value
+sesType = sheet['A2'].value
+sesCountry = sheet['E2'].value
+sesProduct = sheet['F2'].value
+
+
+
+
+
+# -------- TASKS IN INDEGENE SANDBOX ------------------------
+
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait  # available since 2.4.0
+from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 # Data collection
 delay = 5
-uploadfilename = "D:\Learning\Python\PythonLearning\BOTOX_ONERegistrationQuickLookGuide.html"
-sesName = "Test Session name"
-sesTitle = "Test Session title"
-sesType = "Email Template"
-sesCountry = "France"
-sesProduct = "Cholecap"
+
 
 
 
@@ -33,7 +50,7 @@ def siteLogin(url, uname, pwd):
 siteLogin('https://login.veevavault.com/auth/login',
           'girish@vv-agency.com', 'V@ult123')
 
-print("Loged in")
+print("Logged in")
 # -------------
 
 # UPLOAD SECTION
@@ -50,11 +67,9 @@ def chooseFileFunc():
     try:
         chooseFile = browser.find_element_by_id('inboxFileChooserHTML5')
         chooseFile.send_keys(uploadfilename)
-        # chooseFile.click()
         print("Successful")
     except Exception as axp:
         print("Click ok Again")
-        # clickOkBtn()
         chooseFileFunc()
 
 
@@ -62,13 +77,11 @@ def clicknextBtn():
     try:
         nextBtn = browser.find_element_by_id('inboxUploadNext')
         nextBtn.click()
-        # nextBtn.send_keys(Keys.ENTER )
         print("Able to find NEXT BUTTON")
         clicknextBtn()
         
     except Exception as axp:
         print("unable to find NEXT BUTTON")
-        # clicknextBtn()        
 
 
 def clicksaveBtn():
@@ -80,8 +93,6 @@ def clicksaveBtn():
         print("Unable to click save")
         clicknextBtn()
 
-# uploadType = browser.find_element_by_id('uploadTypeSelect')
-# uploadType.click()        
 chooseFileFunc()
 
 
@@ -95,9 +106,7 @@ docType1 = browser.find_element_by_xpath('//*[@id="veevaBasePage"]/ul')
 for li in docType1.find_elements_by_tag_name('li'):
     print(li.text)
     if li.text == sesType:
-        # WebDriverWait(browser, 10)
         li.click() 
-        # WebDriverWait(browser, 10)
         break
 # ---------------------------------------------------
 
@@ -119,7 +128,7 @@ browser.implicitly_wait(delay)
 
 
 try:
-    countryName = browser.find_element_by_xpath('//*[@id="di3Form"]/div[2]/div[1]/div/div[1]/div[10]/div/div[2]/div/div[1]/input')
+    countryName = browser.find_element_by_xpath('//*[@id="di3Form"]/div[2]/div[1]/div/div[1]/div[9]/div/div[2]/div/div[1]/input')
     countryName.clear()
     countryName.send_keys(sesCountry)
     countryName.click()
