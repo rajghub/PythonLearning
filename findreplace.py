@@ -1,7 +1,12 @@
 # Update HTML file ----------------------
-import os
-texttofind = 'href'
-texttoreplace = 'href_update'
-inputfile = open("D:\Learning\Python\PythonLearning\BOTOX_ONERegistrationQuickLookGuide.html", "r")
-filedata = inputfile.read()
-print(filedata.value)
+import fileinput
+
+fileName='BOTOX ONE Registration Quick Look Guide.html'
+
+texttofind = 'href="#"'
+texttoreplace = 'href="{{$4080}}&amp;LinkName=BotoxTX%5FONE%5FRegistration%5FQuick%5FLook%5FGuide%5FEF%2D51043"'
+
+with fileinput.FileInput(fileName, inplace=True, backup='.bak') as file:
+    for line in file:
+        print(line.replace(texttofind, texttoreplace), end = '')
+

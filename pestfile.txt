@@ -1,0 +1,1 @@
+fileinput already supports OOOOOOOOOOutplace editing. It redirects stdout to the file in this case:

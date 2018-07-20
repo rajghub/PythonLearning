@@ -1,5 +1,5 @@
 
-# --------- WORKING WITH EXCEL FILE ------------------------
+# --------- EXTRACT DATA FROM EXCEL FILE ------------------------
 import openpyxl
 # import os
 
@@ -12,7 +12,9 @@ sesName = sheet['C2'].value
 sesTitle = sheet['D2'].value
 sesType = sheet['A2'].value
 sesCountry = sheet['E2'].value
-sesProduct = sheet['F2'].value
+sesAccount = sheet['F2'].value
+sesProduct = sheet['G2'].value
+assetFileName = sheet['J2'].value
 
 
 
@@ -36,6 +38,7 @@ delay = 5
 
 browser = webdriver.Chrome('D:\\chromedriver')
 print("Browser opened")
+browser.maximize_window()
 
 # LOGIN FUNCTION
 def siteLogin(url, uname, pwd):
@@ -127,6 +130,7 @@ eleTitle.send_keys(sesTitle)
 browser.implicitly_wait(delay)
 
 
+# Country
 try:
     countryName = browser.find_element_by_xpath('//*[@id="di3Form"]/div[2]/div[1]/div/div[1]/div[9]/div/div[2]/div/div[1]/input')
     countryName.clear()
@@ -137,6 +141,17 @@ except Exception as sp:
     print("Element Not Found")
 
 
+# Account
+try:
+    accountName = browser.find_element_by_xpath('//*[@id="di3Form"]/div[2]/div[1]/div/div[1]/div[12]/div/div[2]/div/div[1]/input')
+    accountName.clear()
+    accountName.send_keys(sesAccount)
+    accountName.click()
+    accountText = browser.find_element_by_link_text(sesAccount).click()
+except Exception as sp:
+    print("Element Not Found")
+
+# Product
 try:
     productName = browser.find_element_by_xpath('//*[@id="di3Form"]/div[2]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/input')
     productName.clear()
@@ -145,3 +160,45 @@ try:
     linkText = browser.find_element_by_link_text(sesProduct).click()
 except Exception as sp:
     print("Element Not Found")
+
+
+# Click Save button
+
+browser.find_element_by_link_text('Save').click()
+
+
+# Add Asset
+def addAssets():
+    try:
+        assetBtn = WebDriverWait(browser, 100).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="di3Form"]/div[2]/div[4]/h3/a')))
+        assetBtn.click()
+    except Exception as xp:
+        print("Waiting asset dialog box")
+        addAssets()
+
+addAssets()
+
+def chooseImgFile():
+    
+    try:
+        imageFile = browser.find_element_by_xpath('//*[@id="ui-id-1"]/form/div[1]/div/div[3]/label/input')
+        imageFile.send_keys(assetFileName)
+        print("Successful")
+    except Exception as axp:
+        print("Waiting...")
+        chooseImgFile()
+
+
+chooseImgFile()
+
+
+try:
+    uploadImgBtn = browser.find_element_by_link_text('Upload')
+    uploadImgBtn.click()
+    print('Asset uploaded')
+except Exception as xp:
+    print('Unable to upoad the asset')
+
+
+
